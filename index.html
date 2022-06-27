@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Vue</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <span v-if="mostrar">
+            {{ message }}
+        </span>
+        <span v-else>
+            {{ error }}
+        </span> -->
+        <ol v-if="mostrar">
+            <li v-for="item in arreglo">
+                {{ item }}
+            </li>
+        </ol>
+        <ul v-else>
+            <li v-for="item in items">
+                <a v-bind:href="item.url" target="_blank">{{ item.nombre }}</a>
+            </li>
+        </ul>
+        <Button v-on:click="cambiarEstado">Mostrar Perro</Button> <!-- v-on: Activacion del botón-->
+        <br></br>
+        <input type="text" v-model="message">
+            {{message}}
+        <ol>
+            <todo-item v-for="i in items" v-bind:item="i" v-bind:key="i.name"></todo-item>
+        </ol>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message:'Hola Mundo con Vue',
+                error: 'No se puede mostrar el mensaje',
+                arreglo: ['nombre_curso', 'nombre_autor', 'pagina_1', 'correo', 'contacto'],
+                items: [
+                    {
+                        nombre: 'Facebook',
+                        url: 'https://facebook.com'
+                    },
+                    {
+                        nombre: 'Twiter',
+                        url: 'https://twitter.com'
+                    },
+                    {
+                        nombre: 'YouTube',
+                        url: 'https://youtube.com'
+                    }
+                ],
+                mostrar: true
+            },
+            methods: {
+                cambiarEstado(){
+                    this.mostrar = !this.mostrar; //Lo contrario de mostrar
+                }
+            },
+        });
+        Vue.component('todo-item', {
+            props: ["item"],
+            template: '<li> <a v-bind:href="item.url" target="_blank">{{item.nombre}}</a></li>'
+        });
+    </script>
+</body>
+</html>
